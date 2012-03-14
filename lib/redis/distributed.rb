@@ -566,7 +566,7 @@ class Redis
 
     # Mark the start of a transaction block.
     def multi
-      raise CannotDistribute, :multi
+      nodes.each(&:multi)
     end
 
     # Watch the given keys to determine execution of the MULTI/EXEC block.
@@ -581,7 +581,7 @@ class Redis
 
     # Execute all commands issued after MULTI.
     def exec
-      raise CannotDistribute, :exec
+      nodes.each(&:exec)
     end
 
     # Discard all commands issued after MULTI.
